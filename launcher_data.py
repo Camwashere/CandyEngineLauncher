@@ -46,6 +46,7 @@ def create_default_ini():
         'SourcePath': 'Null',
         'BuildPath': 'Null'
     }
+
     config['Projects'] = {
         'ProjectPaths': 'Null',
         'LastProjectPath': 'Null'
