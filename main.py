@@ -3,6 +3,9 @@ import tkinter as tk
 import project_loader
 import launcher_data as ld
 import engine_installer
+import file_validation
+
+file_validation.find_dll_write_to_file("C:/Users/perso/CLionProjects/CandyEngine/build/debug", "requiredDLL.txt")
 
 launcher_data = ld.load_launcher_data()
 
