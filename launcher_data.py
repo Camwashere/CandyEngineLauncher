@@ -24,6 +24,10 @@ class LauncherData:
     def has_projects(self):
         return len(self.known_project_dirs) > 0
 
+    def needs_dependencies(self):
+        if self.needs_engine_install():
+            return True
+
 
 launcher_ini_file_path = 'launcher.ini'
 

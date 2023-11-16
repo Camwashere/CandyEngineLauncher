@@ -6,30 +6,34 @@ import os
 
 
 def clone_engine_core(config, install_dir):
-    repo_name = 'engine'
-    repo_url = config['Core'][repo_name]
+    repo_name = 'CandyEngine'
+    repo_url = config['Core']['engine']
     directory = os.path.join(install_dir, repo_name)
     try:
         subprocess.check_call(['git', 'clone', repo_url, directory])
+        return True
     except subprocess.CalledProcessError as err:
         print(f'Error while cloning {repo_name}: {err}')
+        return False
 
 
-def install_engine(install_dir):
-    print("Installing engine...")
-    # load ini file
-    config = configparser.ConfigParser()
-    config.read('file.ini')  # Change to your ini file path
-    clone_engine_core(config, install_dir)
-
-
-def launch_installer():
+def choose_install_directory():
     root = tk.Tk()  # create root window
     root.withdraw()  # hide root window
 
     engine_install_dir = filedialog.askdirectory(title="Select Candy Engine Install Directory")
-    if not engine_install_dir:
-        print("Engine installation directory is not selected.")
-        return
+    return engine_install_dir
 
-    install_engine(engine_install_dir)
+
+def install_engine_core(install_dir):
+    print("Installing engine...")
+    # load ini file
+    config = configparser.ConfigParser()
+    config.read('links.ini')  # Change to your ini file path
+    if not clone_engine_core(config, install_dir):
+        print("Failed to clone engine core!")
+        exit(1)
+
+    root_dir = os.path.join(install_dir, 'CandyEngine')
+    print(f'Root dir {root_dir}')
+    return root_dir
